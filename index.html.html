@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designer Abdullah — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B0000;
+    --red-light: #A50000;
+    --black: #0A0A0A;
+    --black-2: #111111;
+    --black-3: #1a1a1a;
+    --white: #F5F5F5;
+    --white-dim: rgba(245,245,245,0.6);
+    --white-faint: rgba(245,245,245,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body.ar {
+    font-family: 'Readex Pro', sans-serif;
+    direction: rtl;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(139,0,0,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--white-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: 1px solid var(--red);
+    color: var(--white);
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Readex Pro', sans-serif;
+    font-weight: 700;
+  }
+
+  .lang-btn:hover {
+    background: var(--red);
+  }
+
+  .available-dot {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    color: var(--white-dim);
+    text-transform: uppercase;
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 24px; height: 2px;
+    background: var(--white);
+    display: block;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--red);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--red);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(139,0,0,0.08) 100%);
+    pointer-events: none;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 16vw, 200px);
+    color: rgba(139,0,0,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 8px;
+    user-select: none;
+  }
+
+  .hero-left { z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--red);
+  }
+
+  h1.hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 100px);
+    line-height: 0.9;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  h1.hero-name .red { color: var(--red); }
+
+  .hero-title {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+    color: var(--white);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .hero-desc {
+    font-size: 0.9rem;
+    color: var(--white-dim);
+    line-height: 1.8;
+    max-width: 380px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 1px solid var(--red);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--red);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 1px solid rgba(245,245,245,0.3);
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .hero-img-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  #particleCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-img-wrap::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(ellipse, rgba(139,0,0,0.12) 0%, transparent 70%);
+    z-index: 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+    filter: contrast(1.05);
+    mix-blend-mode: lighten;
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 3;
+  }
+
+  .stat-card {
+    background: var(--black-2);
+    border: 1px solid rgba(139,0,0,0.3);
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    color: var(--white-dim);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 80px 5%;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(245,245,245,0.08);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: 4px;
+  }
+
+  .section-link {
+    color: var(--red);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s;
+  }
+
+  .section-link:hover { gap: 14px; }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--black-2);
+    border: 1px solid rgba(245,245,245,0.06);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    border-color: var(--red);
+    transform: translateY(-4px);
+  }
+
+  .project-thumb {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: var(--black-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-thumb-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: rgba(139,0,0,0.3);
+    letter-spacing: 3px;
+    transition: all 0.4s;
+  }
+
+  .project-card:hover .project-thumb-inner {
+    color: rgba(139,0,0,0.6);
+    transform: scale(1.05);
+  }
+
+  .project-info {
+    padding: 20px;
+  }
+
+  .project-num {
+    font-size: 0.65rem;
+    color: var(--red);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .project-type {
+    font-size: 0.7rem;
+    color: var(--white-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .project-arrow {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 1rem;
+  }
+
+  .project-card:hover .project-arrow { opacity: 1; }
+
+  /* SKILLS & PROCESS */
+ .skills-process {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+  .skills-wrap h3, .process-wrap h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    color: #F5F5F5 ;
+    margin-bottom: 28px;
+  }
+
+  .tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tag {
+    border: 1px solid rgba(139,0,0,0.4);
+    padding: 8px 16px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    transition: all 0.3s;
+  }
+
+  .tag:hover {
+    border-color: var(--red);
+    color: var(--white);
+    background: rgba(139,0,0,0.1);
+  }
+
+  .process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .process-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .process-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    line-height: 1;
+    min-width: 36px;
+  }
+
+  .process-text h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--red);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .process-text p {
+    font-size: 0.8rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+  }
+
+  /* QUOTE */
+  .quote-section {
+    background: var(--red);
+    padding: 60px 5%;
+    text-align: center;
+    font-family: inherit;
+  }
+
+  body.ar .quote-section {
+    font-family: 'Readex Pro', sans-serif;
+  }
+
+  .quote-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 48px);
+    letter-spacing: 3px;
+    line-height: 1.2;
+    max-width: 700px;
+    margin: 0 auto 20px;
+  }
+
+  .quote-sig {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: rgba(245,245,245,0.7);
+    text-transform: uppercase;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--black-2);
+    padding: 80px 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .contact-left h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .contact-left h2 span { color: var(--red); }
+
+  .contact-left p {
+    font-size: 0.85rem;
+    color: var(--white-dim);
+    line-height: 1.8;
+    max-width: 380px;
+    margin-bottom: 32px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 0.85rem;
+    transition: color 0.3s;
+    padding: 12px 16px;
+    border: 1px solid rgba(245,245,245,0.06);
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--red);
+    color: var(--red);
+    padding-left: 24px;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(139,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-visual {
+    background: var(--black-3);
+    border: 1px solid rgba(139,0,0,0.2);
+    padding: 40px;
+    text-align: center;
+    max-width: 320px;
+    width: 100%;
+  }
+
+  .contact-visual-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .contact-visual-title span { color: var(--red); }
+
+  .contact-visual-sub {
+    font-size: 0.7rem;
+    color: var(--white-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 24px 5%;
+    border-top: 1px solid rgba(245,245,245,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--white-dim);
+    letter-spacing: 1px;
+  }
+
+  footer span { color: var(--red); }
+
+  /* MOBILE NAV */
+  .mobile-menu {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--black);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .mobile-menu a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .mobile-menu a:hover { color: var(--red); }
+
+  .mobile-close {
+    position: absolute;
+    top: 24px; right: 5%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding-top: 80px;
+      padding-bottom: 0;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .hero-right {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      order: unset;
+      margin-bottom: 0;
+      align-items: stretch;
+    }
+
+    .hero-img-wrap {
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    #particleCanvas {
+      height: 100%;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      padding: 0 5% 60px;
+      margin-top: auto;
+      background: linear-gradient(to top, rgba(10,10,10,0.97) 40%, rgba(10,10,10,0.5) 70%, transparent 100%);
+      padding-top: 120px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero-stats {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+      z-index: 3;
+    }
+
+    .hero-desc { margin: 0 auto 32px; }
+    .hero-cta { justify-content: center; }
+    .hero-tag { justify-content: center; }
+
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-process { grid-template-columns: 1fr; gap: 40px; }
+    .contact-section { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .available-dot { display: none; }
+    .hamburger { display: flex; }
+    .hero-bg-text { font-size: 18vw; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-stats {
+      gap: 10px;
+    }
+    .stat-card { padding: 10px 14px; min-width: 70px; }
+    .stat-num { font-size: 1.5rem; }
+    section { padding: 60px 5%; }
+    .contact-visual { padding: 28px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(5,5,5,0.96);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .lightbox.open {
+    display: flex;
+    animation: lbFadeIn 0.3s ease;
+  }
+
+  @keyframes lbFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lightbox-inner {
+    width: 100%;
+    max-width: 860px;
+    position: relative;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.4rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+
+  .lb-close:hover { color: var(--red); }
+
+  .lb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .lb-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .lb-counter {
+    font-size: 0.75rem;
+    color: var(--white-dim);
+    letter-spacing: 2px;
+  }
+
+  .lb-img-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black-3);
+    border: 1px solid rgba(139,0,0,0.2);
+    overflow: hidden;
+    min-height: 300px;
+  }
+
+  #lbImg {
+    max-width: 100%;
+    max-height: 70vh;
+    display: block;
+    object-fit: contain;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  #lbImg.switching {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(139,0,0,0.7);
+    border: none;
+    color: var(--white);
+    font-size: 1.2rem;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+@media (max-width: 600px) {
+  .lb-nav {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    background: rgba(139,0,0,0.4);
+  }
+}
+
+  
+  .lb-nav:hover { background: var(--red); }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+
+  .lb-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .lb-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(245,245,245,0.25);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .lb-dot.active {
+    background: var(--red);
+    transform: scale(1.4);
+  }
+
+  /* FULLSCREEN MODE */
+.lb-expand-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(139,0,0,0.8);
+  border: none;
+  color: var(--white);
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  z-index: 3;
+  transition: background 0.2s;
+}
+.lb-expand-btn:hover { background: var(--red); }
+
+.lb-fullscreen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.98);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.lb-fullscreen.open { display: flex; }
+
+.lb-fullscreen img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: grab;
+  transition: transform 0.2s ease;
+  transform-origin: center center;
+  user-select: none;
+}
+.lb-fullscreen img:active { cursor: grabbing; }
+
+.lb-fs-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(139,0,0,0.85);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: background 0.2s;
+}
+.lb-fs-close:hover { background: var(--red); }
+
+.lb-zoom-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10000;
+}
+
+.lb-zoom-btn {
+  background: rgba(139,0,0,0.85);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.lb-zoom-btn:hover { background: var(--red); }
+
+  /* Scroll animations */
+  .fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: transform;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+}
+
+.fade-up.visible.project-card:hover,
+.project-card.fade-up.visible:hover {
+  border-color: var(--red);
+  transform: translateY(-4px);
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">ABD<span>.</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#projects" data-en="Projects" data-ar="أعمالي">Projects</a></li>
+    <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">Skills</a></li>
+    <li><a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="available-dot">
+      <span class="dot"></span>
+      <span data-en="Available" data-ar="متاح للعمل">Available</span>
+    </div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">عربي</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <a href="#projects" onclick="closeMenu()" data-en="Projects" data-ar="أعمالي">Projects</a>
+  <a href="#skills" onclick="closeMenu()" data-en="Skills" data-ar="مهاراتي">Skills</a>
+  <a href="#contact" onclick="closeMenu()" data-en="Contact" data-ar="تواصل">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">PORTFOLIO</div>
+
+  <div class="hero-left">
+    <div class="hero-tag" data-en="UI/UX · Graphic · AI" data-ar="واجهات · جرافيك · ذكاء اصطناعي">UI/UX · Graphic · AI</div>
+    <h1 class="hero-name">
+      <span data-en="DESIGNER" data-ar="مصمم">DESIGNER</span><br>
+      <span class="red">ABDULLAH</span>
+    </h1>
+    <div class="hero-title" data-en="UI/UX Designer · Graphic Designer · AI Content Creator" data-ar="مصمم واجهات · مصمم جرافيك · منتج محتوى بالذكاء الاصطناعي">UI/UX Designer · Graphic Designer · AI Content Creator</div>
+    <p class="hero-desc" data-en="I design and build powerful digital experiences that combine creativity with strategy. Specialized in UI/UX, visual branding, and professional AI-powered content creation." data-ar="أصمم وأبني تجارب رقمية قوية تجمع بين الإبداع والاستراتيجية. متخصص في واجهات المستخدم والهوية البصرية وإنتاج المحتوى الاحترافي بالذكاء الاصطناعي.">I design and build powerful digital experiences that combine creativity with strategy. Specialized in UI/UX, visual branding, and professional AI-powered content creation.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary" data-en="View Work" data-ar="أعمالي">View Work</a>
+      <a href="#contact" class="btn-outline" data-en="Let's Talk" data-ar="تواصل معي">Let's Talk</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <canvas id="particleCanvas"></canvas>
+      <img src="images/my-photo.jpg" alt="Designer Abdullah" class="hero-img">
+      <div class="hero-stats">
+        <div class="stat-card">
+         <div class="stat-num">3<span style="color:var(--red)">+</span></div>
+         <div class="stat-label" data-en="Years Exp." data-ar="سنوات خبرة">Years Exp.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">40<span style="color:var(--red)">+</span></div>
+          <div class="stat-label" data-en="Projects" data-ar="مشروع">Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-up">
+    <div class="section-title" data-en="SELECTED PROJECTS" data-ar="أبرز الأعمال">SELECTED PROJECTS</div>
+    <a onclick="toggleMoreProjects()" class="section-link" style="cursor:pointer;" id="viewAllBtn" data-en="VIEW ALL →" data-ar="كل الأعمال ←">VIEW ALL →</a>
+  </div>
+  <div class="projects-grid">
+
+    <!-- PROJECT 1: BEIRUT B -->
+    <div class="project-card fade-up" onclick="openGallery(0)">
+      <div class="project-thumb">
+        <!-- ضع رابط صورة الكفر هون -->
+        <img src="images/B-B-Cover.png" alt="Beirut B" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">01</div>
+        <div class="project-name">BEIRUT B</div>
+        <div class="project-type" data-en="Branding · Menu · Digital Experience" data-ar="هوية بصرية · منيو · تجربة رقمية">Branding · Menu · Digital Experience</div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: DIYAR -->
+    <div class="project-card fade-up" onclick="openGallery(1)">
+      <div class="project-thumb">
+        <!-- ضع رابط صورة الكفر هون -->
+        <img src="images/diyar-hotels-cover.png" alt="Diyar-hotels-project" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">02</div>
+        <div class="project-name" data-en="Ui Ux Diyar" data-ar="Ui/Ux Diyar Hotels">Ui/Ux Diyar Hotels</div>
+        <div class="project-type" data-en="Ui Ux · Web Design" data-ar="Ui Ux · تصميم ويب">Ui Ux · Web Design</div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: T-STYLE -->
+    <div class="project-card fade-up" onclick="openGallery(2)">
+      <div class="project-thumb">
+        <!-- ضع رابط صورة الكفر هون -->
+        <img src="images/T-STYLE-COVER.png" alt="T-STYLE" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">03</div>
+        <div class="project-name" data-en="T-STYLE-STORE" data-ar="T-STYLE-STORE">T-STYLE-STORE</div>
+            <div class="project-type" data-en="Ui Ux · Web Design" data-ar="Ui Ux · تصميم تطبيق">Ui Ux · App Design</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXTRA PROJECTS -->
+<div id="extraProjects" style="display:none; overflow:hidden; padding: 0 5%;">
+  <div class="projects-grid" style="margin-top:24px;">
+
+    <div class="project-card" onclick="openGallery(3)">
+      <div class="project-thumb">
+        <img src="images/Ai-prompts-cover.png" alt="AI Visual Designs" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">04</div>
+        <div class="project-name" data-en="AI VISUAL DESIGNS" data-ar="تصاميم بالذكاء الاصطناعي">AI VISUAL DESIGNS</div>
+        <div class="project-type" data-en="AI · Generative Design" data-ar="تصميم · ذكاء اصطناعي">AI · Generative Design</div>
+      </div>
+    </div>
+
+    <div class="project-card" onclick="openGallery(4)">
+      <div class="project-thumb">
+        <img src="images/SKIN-RETOUCHING-COVER.png" alt="Skin Retouching" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">05</div>
+        <div class="project-name" data-en="SKIN & FACE RETOUCHING" data-ar="تعديل الوجوه والبشرة">SKIN & FACE RETOUCHING</div>
+        <div class="project-type" data-en="Photoshop · Photo Editing" data-ar="فوتوشوب · تعديل صور">Photoshop · Photo Editing</div>
+      </div>
+    </div>
+
+
+    <div class="project-card" onclick="openGallery(5)">
+      <div class="project-thumb">
+        <img src="images/ZAIT&ZAATAR-COVER.png" alt="Zait & Zatar" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-arrow">→</div>
+      <div class="project-info">
+        <div class="project-num">06</div>
+        <div class="project-name">ZAIT & ZATAR</div>
+        <div class="project-type" data-en="Brand Identity · Visual Design" data-ar="هوية بصرية · تصميم">Brand Identity · Visual Design</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX GALLERY -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner">
+    <button class="lb-close" onclick="closeGallery()">✕</button>
+    <div class="lb-header">
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
+    <div class="lb-img-wrap">
+      <button class="lb-expand-btn" onclick="openFullscreen()" title="توسيع">⛶</button>
+      <button class="lb-nav lb-prev" onclick="changeImg(-1)">&#8592;</button>
+      <img id="lbImg" src="" alt="">
+      <button class="lb-nav lb-next" onclick="changeImg(1)">&#8594;</button>
+    </div>
+    <div class="lb-dots" id="lbDots"></div>
+  </div>
+</div>
+
+<!-- FULLSCREEN VIEWER -->
+<div class="lb-fullscreen" id="lbFullscreen">
+  <button class="lb-fs-close" onclick="closeFullscreen()">✕</button>
+  <div class="lb-zoom-controls">
+    <button class="lb-zoom-btn" onclick="zoomIn()">＋</button>
+    <button class="lb-zoom-btn" onclick="zoomOut()">－</button>
+  </div>
+  <img id="fsImg" src="" alt="" draggable="false">
+</div>
+
+<!-- SKILLS & PROCESS -->
+<section id="skills">
+  <div class="skills-process">
+    <div class="skills-wrap fade-up">
+      <h3 data-en="SKILLS" data-ar="المهارات">SKILLS</h3>
+      <div class="tags-wrap">
+        <span class="tag">UI/UX DESIGN</span>
+        <span class="tag">GRAPHIC DESIGN</span>
+        <span class="tag">AI CONTENT</span>
+        <span class="tag">BRANDING</span>
+        <span class="tag">SOCIAL MEDIA DESIGN</span>
+        <span class="tag">WEB DESIGN</span>
+        <span class="tag">PORTFOLIO WEB DESIGN & DEV</span>
+        <span class="tag">DIGITAL MENU & QR CODE</span>
+        <span class="tag">🇬🇧 ENGLISH</span>
+      </div>
+    </div>
+    <div class="skills-wrap fade-up">
+      <h3 data-en="SOFTWARE" data-ar="البرامج">SOFTWARE</h3>
+      <div class="tags-wrap">
+        <span class="tag">ADOBE PHOTOSHOP</span>
+        <span class="tag">ADOBE ILLUSTRATOR</span>
+        <span class="tag">CLUDE & CLUDE CODE & THEIR EXTENSIONS</span>
+        <span class="tag">FIGMA</span>
+        <span class="tag">VS CODE</span>
+      </div>
+    </div>
+    <div class="process-wrap fade-up">
+      <h3 data-en="WORK PROCESS" data-ar="طريقة العمل">WORK PROCESS</h3>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="process-num">01</div>
+          <div class="process-text">
+            <h4 data-en="DISCOVER" data-ar="الفهم">DISCOVER</h4>
+            <p data-en="Understanding goals, audience, and project requirements." data-ar="فهم الأهداف والجمهور ومتطلبات المشروع.">Understanding goals, audience, and project requirements.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">02</div>
+          <div class="process-text">
+            <h4 data-en="IDEATE" data-ar="الأفكار">IDEATE</h4>
+            <p data-en="Planning, wireframing, and creating the right concept." data-ar="التخطيط والرسم الأولي وبناء المفهوم المناسب.">Planning, wireframing, and creating the right concept.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">03</div>
+          <div class="process-text">
+            <h4 data-en="DESIGN" data-ar="التصميم">DESIGN</h4>
+            <p data-en="Crafting visual design with focus on user experience." data-ar="بناء التصميم البصري مع التركيز على تجربة المستخدم.">Crafting visual design with focus on user experience.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">04</div>
+          <div class="process-text">
+            <h4 data-en="DELIVER" data-ar="التسليم">DELIVER</h4>
+            <p data-en="Final polish, testing, and delivering with perfection." data-ar="اللمسات الأخيرة والاختبار والتسليم باحترافية.">Final polish, testing, and delivering with perfection.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section fade-up">
+  <div class="quote-text" data-en='"We don't design shapes only — we design stories that reflect reality."' data-ar='"لا نصمم أشكالاً فقط.. نصمم قصصاً تعكس الواقع."'>"We don't design shapes only — we design stories that reflect reality."</div>
+  <div class="quote-sig" data-en="— Abdullah" data-ar="— عبدالله">— Abdullah</div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left fade-up">
+    <h2 data-en="LET'S CREATE SOMETHING GREAT" data-ar="لنصنع شيئاً استثنائياً">LET'S CREATE SOMETHING <span>GREAT</span></h2>
+    <p data-en="Open for new projects and collaborations. Let's create something amazing that drives results." data-ar="متاح لمشاريع ومشاركات جديدة. لنبني معاً شيئاً يحقق نتائج حقيقية.">Open for new projects and collaborations. Let's create something amazing that drives results.</p>
+    <div class="contact-links">
+      <a href="https://wa.me/963958390731" class="contact-link" target="_blank">
+        <div class="contact-icon"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" width="18"></div>
+        <span>+963 958 390 731</span>
+      </a>
+      <a href="mailto:abdullah8designer@gmail.com" class="contact-link">
+        <div class="contact-icon"><img src="https://cdn.simpleicons.org/gmail/ffffff" width="18"></div>
+        <span>abdullah8designer@gmail.com</span>
+      </a>
+      <a href="https://www.instagram.com/abd.ai.design" class="contact-link" target="_blank">
+        <div class="contact-icon"><img src="https://cdn.simpleicons.org/instagram/ffffff" width="18"></div>
+        <span>@abd.ai.design</span>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right fade-up">
+    <div class="contact-visual">
+      <div class="contact-visual-title">WE DESIGN<br><span>DIGITAL</span><br>EXPERIENCES</div>
+      <div class="contact-visual-sub" data-en="Available Worldwide" data-ar="متاح عالمياً">Available Worldwide</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 <span>Designer Abdullah</span></div>
+  <div data-en="UI/UX · Graphic · AI Design" data-ar="واجهات · جرافيك · ذكاء اصطناعي">UI/UX · Graphic · AI Design</div>
+</footer>
+
+<script>
+  // PROJECTS GALLERY DATA
+  // ← ضع روابط صورك هون
+  const projects = [
+    {
+      title: "BEIRUT B",
+      images: [
+         "images/B-B-1.png",   // ← صورة 1
+        "images/B-B-2.png",   // ← صورة 2
+        "images/B-B-3.png",   // ← صورة 3
+           // ← صورة 4 (احذف أو زيد حسب عدد صورك)
+      ]
+    },
+    {
+      title: "Diyar",
+      images: [
+        "images/diyar-project-1.png", // ← صورة 1
+        "images/diyar-project-2.png", // ← صورة 2
+        "images/diyar-project-3.png", // ← صورة 3
+        "images/diyar-project-4.png", // ← صورة 3
+        "images/diyar-project-5.png", // ← صورة 3
+        "images/diyar-project-6.png", // ← صورة 3
+      ]
+    },
+    {
+      title: "T-STYLE-STORE",
+      images: [
+        "images/T-STYLE-1.png",   // ← صورة 1
+        "images/T-STYLE-2.png",   // ← صورة 2
+        "images/T-STYLE-3.png",   // ← صورة 3
+        "images/T-STYLE-4.png",   // ← صورة 4
+        "images/T-STYLE-5.png",   // ← صورة 5
+       
+      ]
+    },
+
+
+{
+  title: "AI VISUAL DESIGNS",
+  images: [
+    "images/ai-drinks-3.jpg",
+    "images/ai-burger-4.jpg",
+    "images/ai-gta-1.jpg",
+    "images/ai-gta-2.jpg",
+  ]
+},
+{
+  title: "SKIN & FACE RETOUCHING",
+  images: [
+    "images/RETOUCHING-1.png",
+    "images/RETOUCHING-2.png",
+    "images/RETOUCHING-3.png",
+  ]
+},
+
+{
+  title: "ZAIT & ZATAR",
+  images: [
+    "images/ZAIT-ZAATAR-1.jpg",
+    "images/ZAIT-ZAATAR-2.jpg",
+    "images/ZAIT-ZAATAR-3.jpg",
+    "images/ZAIT-ZAATAR-4.jpg",
+    "images/ZAIT-ZAATAR-5.jpg",
+  ]
+},
+
+    
+  ];
+
+  let currentProject = 0;
+  let currentImg = 0;
+
+  function openGallery(projectIndex) {
+    currentProject = projectIndex;
+    currentImg = 0;
+    renderGallery();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeGallery() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeGallery();
+  }
+
+  function renderGallery() {
+    const p = projects[currentProject];
+    const imgs = p.images;
+    document.getElementById('lbTitle').textContent = p.title;
+    document.getElementById('lbCounter').textContent = `${currentImg + 1} / ${imgs.length}`;
+
+    const img = document.getElementById('lbImg');
+    img.classList.add('switching');
+    setTimeout(() => {
+      img.src = imgs[currentImg];
+      img.classList.remove('switching');
+    }, 220);
+
+    // dots
+    const dots = document.getElementById('lbDots');
+    dots.innerHTML = imgs.map((_, i) =>
+      `<div class="lb-dot ${i === currentImg ? 'active' : ''}" onclick="goToImg(${i})"></div>`
+    ).join('');
+  }
+
+  function changeImg(dir) {
+    const imgs = projects[currentProject].images;
+    currentImg = (currentImg + dir + imgs.length) % imgs.length;
+    renderGallery();
+  }
+
+  function goToImg(i) {
+    currentImg = i;
+    renderGallery();
+  }
+
+// FULLSCREEN + ZOOM
+let zoomLevel = 1;
+let isDragging = false;
+let dragStart = { x: 0, y: 0 };
+let imgPos = { x: 0, y: 0 };
+
+function openFullscreen() {
+  const fsImg = document.getElementById('fsImg');
+  fsImg.src = projects[currentProject].images[currentImg];
+  zoomLevel = 1;
+  imgPos = { x: 0, y: 0 };
+  fsImg.style.transform = `scale(1) translate(0px, 0px)`;
+  document.getElementById('lbFullscreen').classList.add('open');
+}
+
+function closeFullscreen() {
+  document.getElementById('lbFullscreen').classList.remove('open');
+}
+
+function zoomIn() {
+  zoomLevel = Math.min(zoomLevel + 0.3, 4);
+  applyZoom();
+}
+
+function zoomOut() {
+  zoomLevel = Math.max(zoomLevel - 0.3, 0.5);
+  applyZoom();
+}
+
+function resetZoom() {
+  zoomLevel = 1;
+  imgPos = { x: 0, y: 0 };
+  applyZoom();
+}
+
+function applyZoom() {
+  const img = document.getElementById('fsImg');
+  img.style.transform = `scale(${zoomLevel}) translate(${imgPos.x}px, ${imgPos.y}px)`;
+}
+
+// Drag to pan
+const fsImg = document.getElementById('fsImg');
+fsImg.addEventListener('mousedown', e => {
+  isDragging = true;
+  dragStart = { x: e.clientX - imgPos.x * zoomLevel, y: e.clientY - imgPos.y * zoomLevel };
+});
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  imgPos.x = (e.clientX - dragStart.x) / zoomLevel;
+  imgPos.y = (e.clientY - dragStart.y) / zoomLevel;
+  applyZoom();
+});
+document.addEventListener('mouseup', () => isDragging = false);
+
+// Scroll to zoom
+document.getElementById('lbFullscreen').addEventListener('wheel', e => {
+  e.preventDefault();
+  e.deltaY < 0 ? zoomIn() : zoomOut();
+}, { passive: false });
+
+  // keyboard support
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') changeImg(1);
+    if (e.key === 'ArrowLeft') changeImg(-1);
+    if (e.key === 'Escape') closeGallery();
+  });
+
+  // VIEW ALL TOGGLE
+function toggleMoreProjects() {
+  const extra = document.getElementById('extraProjects');
+  const btn = document.getElementById('viewAllBtn');
+  const isOpen = extra.style.display !== 'none';
+
+  if (isOpen) {
+    extra.style.maxHeight = '0';
+    extra.style.opacity = '0';
+    setTimeout(() => extra.style.display = 'none', 400);
+    btn.setAttribute('data-en', 'VIEW ALL ↓');
+    btn.setAttribute('data-ar', 'كل الأعمال ↓');
+    btn.textContent = isAr ? 'كل الأعمال ↓' : 'VIEW ALL ↓';
+  } else {
+    extra.style.display = 'block';
+    extra.style.maxHeight = '0';
+    extra.style.opacity = '0';
+    extra.style.transition = 'max-height 0.6s ease, opacity 0.5s ease';
+    setTimeout(() => {
+      extra.style.maxHeight = '2000px';
+      extra.style.opacity = '1';
+      // ينزل تلقائياً على المشاريع الجديدة
+      setTimeout(() => {
+        extra.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }, 10);
+    btn.setAttribute('data-en', 'SHOW LESS ↑');
+    btn.setAttribute('data-ar', 'إخفاء ↑');
+    btn.textContent = isAr ? 'إخفاء ↑' : 'SHOW LESS ↑';
+  }
+}
+
+  // LANGUAGE TOGGLE
+  let isAr = false;
+
+  function toggleLang() {
+    isAr = !isAr;
+    const lang = isAr ? 'ar' : 'en';
+    document.body.classList.toggle('ar', isAr);
+    document.documentElement.setAttribute('lang', isAr ? 'ar' : 'en');
+    document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+    document.getElementById('langBtn').textContent = isAr ? 'EN' : 'عربي';
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = isAr ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+  }
+
+  // MOBILE MENU
+  function openMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.querySelector('.hamburger').classList.add('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.querySelector('.hamburger').classList.remove('open');
+  }
+  function toggleMenu() {
+    const isOpen = document.getElementById('mobileMenu').classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  }
+
+  // SCROLL ANIMATIONS — staggered fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // PARTICLE CANVAS
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    const wrap = canvas.parentElement;
+    canvas.width = wrap.offsetWidth;
+    canvas.height = wrap.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const particles = Array.from({ length: 38 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2.5 + 1,
+    dx: (Math.random() - 0.5) * 0.35,
+    dy: (Math.random() - 0.5) * 0.35,
+    opacity: Math.random() * 0.5 + 0.2,
+    pulse: Math.random() * Math.PI * 2
+  }));
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() / 1000;
+
+    particles.forEach(p => {
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+      const glow = Math.sin(t * 1.2 + p.pulse) * 0.3 + 0.7;
+      const alpha = p.opacity * glow;
+
+      // glow halo
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      grad.addColorStop(0, `rgba(139,0,0,${alpha * 0.6})`);
+      grad.addColorStop(1, `rgba(139,0,0,0)`);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // core dot
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,0,0,${alpha})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+</script>
+</body>
+</html>
