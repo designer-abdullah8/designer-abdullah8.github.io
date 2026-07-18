@@ -900,6 +900,27 @@
     min-height: 300px;
   }
 
+  .lb-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(139,0,0,0.2);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+  z-index: 2;
+}
+
+.lb-spinner.active { display: block; }
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
   #lbImg {
     max-width: 100%;
     max-height: 70vh;
@@ -1248,12 +1269,12 @@
       <div class="lb-title" id="lbTitle"></div>
       <div class="lb-counter" id="lbCounter"></div>
     </div>
-    <div class="lb-img-wrap">
-      <button class="lb-expand-btn" onclick="openFullscreen()" title="توسيع">⛶</button>
-      <button class="lb-nav lb-prev" onclick="changeImg(-1)">&#8592;</button>
-      <img id="lbImg" src="" alt="">
-      <button class="lb-nav lb-next" onclick="changeImg(1)">&#8594;</button>
-    </div>
+  <div class="lb-img-wrap">
+  <div class="lb-spinner" id="lbSpinner"></div>
+  <button class="lb-nav lb-prev" onclick="changeImg(-1)">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="changeImg(1)">&#8594;</button>
+</div>
     <div class="lb-dots" id="lbDots"></div>
   </div>
 </div>
@@ -1461,24 +1482,37 @@
   }
 
   function renderGallery() {
-    const p = projects[currentProject];
-    const imgs = p.images;
-    document.getElementById('lbTitle').textContent = p.title;
-    document.getElementById('lbCounter').textContent = `${currentImg + 1} / ${imgs.length}`;
+  const p = projects[currentProject];
+  const imgs = p.images;
+  document.getElementById('lbTitle').textContent = p.title;
+  document.getElementById('lbCounter').textContent = `${currentImg + 1} / ${imgs.length}`;
 
-    const img = document.getElementById('lbImg');
-    img.classList.add('switching');
-    setTimeout(() => {
-      img.src = imgs[currentImg];
-      img.classList.remove('switching');
-    }, 220);
+  const img = document.getElementById('lbImg');
+  const spinner = document.getElementById('lbSpinner');
 
-    // dots
-    const dots = document.getElementById('lbDots');
-    dots.innerHTML = imgs.map((_, i) =>
-      `<div class="lb-dot ${i === currentImg ? 'active' : ''}" onclick="goToImg(${i})"></div>`
-    ).join('');
-  }
+  img.classList.add('switching');
+  spinner.classList.add('active');
+
+  const nextSrc = imgs[currentImg];
+  const preload = new Image();
+  preload.onload = () => {
+    img.src = nextSrc;
+    img.classList.remove('switching');
+    spinner.classList.remove('active');
+  };
+  preload.onerror = () => {
+    img.src = nextSrc;
+    img.classList.remove('switching');
+    spinner.classList.remove('active');
+  };
+  preload.src = nextSrc;
+
+  // dots
+  const dots = document.getElementById('lbDots');
+  dots.innerHTML = imgs.map((_, i) =>
+    `<div class="lb-dot ${i === currentImg ? 'active' : ''}" onclick="goToImg(${i})"></div>`
+  ).join('');
+}
 
   function changeImg(dir) {
     const imgs = projects[currentProject].images;
