@@ -1641,6 +1641,33 @@ document.getElementById('lbFullscreen').addEventListener('wheel', e => {
   e.deltaY < 0 ? zoomIn() : zoomOut();
 }, { passive: false });
 
+  // TOUCH DRAG TO PAN WHEN ZOOMED
+let touchPanStart = { x: 0, y: 0 };
+let isTouchPanning = false;
+
+fsImgEl.addEventListener('touchstart', function(e) {
+  if (zoomLevel > 1 && e.touches.length === 1) {
+    isTouchPanning = true;
+    touchPanStart = {
+      x: e.touches[0].clientX - imgPos.x * zoomLevel,
+      y: e.touches[0].clientY - imgPos.y * zoomLevel
+    };
+  }
+}, { passive: true });
+
+fsImgEl.addEventListener('touchmove', function(e) {
+  if (isTouchPanning && zoomLevel > 1 && e.touches.length === 1) {
+    imgPos.x = (e.touches[0].clientX - touchPanStart.x) / zoomLevel;
+    imgPos.y = (e.touches[0].clientY - touchPanStart.y) / zoomLevel;
+    applyZoom();
+    e.preventDefault();
+  }
+}, { passive: false });
+
+fsImgEl.addEventListener('touchend', function() {
+  isTouchPanning = false;
+});
+
   // keyboard support
   document.addEventListener('keydown', e => {
     if (!document.getElementById('lightbox').classList.contains('open')) return;
