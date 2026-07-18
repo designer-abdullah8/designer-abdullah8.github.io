@@ -1273,6 +1273,7 @@
   <div class="lb-spinner" id="lbSpinner"></div>
   <button class="lb-nav lb-prev" onclick="changeImg(-1)">&#8592;</button>
   <img id="lbImg" src="" alt="">
+    <button class="lb-expand-btn" onclick="openFullscreen()" title="توسيع">⛶</button>
   <button class="lb-nav lb-next" onclick="changeImg(1)">&#8594;</button>
 </div>
     <div class="lb-dots" id="lbDots"></div>
@@ -1543,6 +1544,61 @@ function openFullscreen() {
 function closeFullscreen() {
   document.getElementById('lbFullscreen').classList.remove('open');
 }
+
+  // DOUBLE-TAP TO ZOOM + SWIPE TO CHANGE IMAGE
+let lastTapTime = 0;
+let touchStartX = 0;
+let touchStartY = 0;
+let touchMoved = false;
+
+const fsImgEl = document.getElementById('fsImg');
+
+fsImgEl.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  const timeSinceLastTap = now - lastTapTime;
+
+  if (timeSinceLastTap < 300 && timeSinceLastTap > 0 && !touchMoved) {
+    // double tap detected
+    if (zoomLevel === 1) {
+      zoomLevel = 2.5;
+    } else {
+      zoomLevel = 1;
+      imgPos = { x: 0, y: 0 };
+    }
+    applyZoom();
+    e.preventDefault();
+  }
+  lastTapTime = now;
+});
+
+fsImgEl.addEventListener('touchstart', function(e) {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchMoved = false;
+}, { passive: true });
+
+fsImgEl.addEventListener('touchmove', function(e) {
+  touchMoved = true;
+}, { passive: true });
+
+fsImgEl.addEventListener('touchend', function(e) {
+  if (zoomLevel > 1) return; // ما تبدل الصورة إذا كانت مكبرة
+
+  const touchEndX = e.changedTouches[0].clientX;
+  const touchEndY = e.changedTouches[0].clientY;
+  const diffX = touchStartX - touchEndX;
+  const diffY = touchStartY - touchEndY;
+
+  // تأكد إنو السحب أفقي أكتر من عمودي
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+    if (diffX > 0) {
+      changeImg(1); // سحب لليسار → الصورة التالية
+    } else {
+      changeImg(-1); // سحب لليمين → الصورة السابقة
+    }
+    openFullscreen(); // تحديث صورة الفول سكرين بعد التبديل
+  }
+});
 
 function zoomIn() {
   zoomLevel = Math.min(zoomLevel + 0.3, 4);
